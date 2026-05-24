@@ -24,8 +24,9 @@
                     </a>
                 </li>
                 <li class="user_nav_item cart">
-                    <button class="login_link" type="button">
+                    <button class="login_link" type="button" id="cart-btn">
                         <span>Корзина</span>
+                        <span id="cart-count" class="cart-badge" style="display: none;">0</span>
                     </button>
                 </li>
             </ul>
@@ -44,57 +45,83 @@
             <ul class="restouranse_list">
                 <li class="restouranse_item">
                     <img src="Картинки/pizzaplus.png" alt="Блюдо из ресторана Пицца плюс">
-                    <p class="restouranse_name">Пицца плюс</p>
-                    <span class="delivery_time">50 мин</span>
-                    <span class="score">
-                        <span class="visually_hidden">Рейтинг ресторана 4.5 звезд из 5</span>
-                    </span>
-                    <span class="min_price">От 900 ₽</span>
+                    <div class="restouranse_item_header">
+                        <p class="restouranse_name">Пицца плюс</p>
+                        <span class="delivery_time"><span>50 мин</span></span>
+                    </div>
+                    <div class="restouranse_meta">
+                        <span class="score">
+                            <span class="visually_hidden">Рейтинг ресторана 4.5 звезд из 5</span>
+                        </span>
+                        <span class="min_price">От 900 ₽</span>
+                    </div>
                 </li>
                 <li class="restouranse_item">
-                    <img src="Картинки/tanuki.png" alt="Блюдо из ресторана Тануки">
-                    <p class="restouranse_name">Тануки</p>
-                    <span class="delivery_time">60 мин</span>
-                    <span class="score">
-                        <span class="visually_hidden">Рейтинг ресторана 4.7 звезд из 5</span>
-                    </span>
-                    <span class="min_price">От 1100 ₽</span>
+                    <a class="restouranse_item_link" href="katalog.html">
+                        <img src="Картинки/tanuki.png" alt="Блюдо из ресторана Тануки">
+                        <div class="restouranse_item_header">
+                            <p class="restouranse_name">Тануки</p>
+                            <span class="delivery_time"><span>60 мин</span></span>
+                        </div>
+                        <div class="restouranse_meta">
+                            <span class="score">
+                                <span class="visually_hidden">Рейтинг ресторана 4.7 звезд из 5</span>
+                            </span>
+                            <span class="min_price">От 1100 ₽</span>
+                        </div>
+                    </a>
                 </li>
                 <li class="restouranse_item">
                     <img src="Картинки/foodband.png" alt="Блюдо из ресторана FoodBand">
-                    <p class="restouranse_name">FoodBand</p>
-                    <span class="delivery_time">40 мин</span>
-                    <span class="score">
-                        <span class="visually_hidden">Рейтинг ресторана 4.4 звезд из 5</span>
-                    </span>
-                    <span class="min_price">От 800 ₽</span>
+                    <div class="restouranse_item_header">
+                        <p class="restouranse_name">FoodBand</p>
+                        <span class="delivery_time"><span>40 мин</span></span>
+                    </div>
+                    <div class="restouranse_meta">
+                        <span class="score">
+                            <span class="visually_hidden">Рейтинг ресторана 4.4 звезд из 5</span>
+                        </span>
+                        <span class="min_price">От 800 ₽</span>
+                    </div>
                 </li>
                 <li class="restouranse_item">
                     <img src="Картинки/zhadina.png" alt="Блюдо из ресторана Жадина-пицца">
-                    <p class="restouranse_name">Жадина-пицца</p>
-                    <span class="delivery_time">35 мин</span>
-                    <span class="score">
-                        <span class="visually_hidden">Рейтинг ресторана 4.3 звезд из 5</span>
-                    </span>
-                    <span class="min_price">От 850 ₽</span>
+                    <div class="restouranse_item_header">
+                        <p class="restouranse_name">Жадина-пицца</p>
+                        <span class="delivery_time"><span>35 мин</span></span>
+                    </div>
+                    <div class="restouranse_meta">
+                        <span class="score">
+                            <span class="visually_hidden">Рейтинг ресторана 4.3 звезд из 5</span>
+                        </span>
+                        <span class="min_price">От 850 ₽</span>
+                    </div>
                 </li>
                 <li class="restouranse_item">
                     <img src="Картинки/tochka.png" alt="Блюдо из ресторана Точка еды">
-                    <p class="restouranse_name">Точка еды</p>
-                    <span class="delivery_time">45 мин</span>
-                    <span class="score">
-                        <span class="visually_hidden">Рейтинг ресторана 4.6 звезд из 5</span>
-                    </span>
-                    <span class="min_price">От 1050 ₽</span>
+                    <div class="restouranse_item_header">
+                        <p class="restouranse_name">Точка еды</p>
+                        <span class="delivery_time"><span>45 мин</span></span>
+                    </div>
+                    <div class="restouranse_meta">
+                        <span class="score">
+                            <span class="visually_hidden">Рейтинг ресторана 4.6 звезд из 5</span>
+                        </span>
+                        <span class="min_price">От 1050 ₽</span>
+                    </div>
                 </li>
                 <li class="restouranse_item">
                     <img src="Картинки/pizzaburger.png" alt="Блюдо из ресторана PizzaBurger">
-                    <p class="restouranse_name">PizzaBurger</p>
-                    <span class="delivery_time">65 мин</span>
-                    <span class="score">
-                        <span class="visually_hidden">Рейтинг ресторана 4.8 звезд из 5</span>
-                    </span>
-                    <span class="min_price">От 750 ₽</span>
+                    <div class="restouranse_item_header">
+                        <p class="restouranse_name">PizzaBurger</p>
+                        <span class="delivery_time"><span>65 мин</span></span>
+                    </div>
+                    <div class="restouranse_meta">
+                        <span class="score">
+                            <span class="visually_hidden">Рейтинг ресторана 4.8 звезд из 5</span>
+                        </span>
+                        <span class="min_price">От 750 ₽</span>
+                    </div>
                 </li>
             </ul>
         </section>
@@ -149,5 +176,21 @@
             </li>
         </ul>
     </footer>
+
+    <div id="cart-modal" class="modal-overlay">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h2 class="modal-title">Корзина</h2>
+                <button id="modal-close" class="modal-close-btn" type="button">&times;</button>
+            </div>
+            <div id="cart-items-list" class="modal-body"></div>
+            <div class="modal-footer">
+                <div class="total-price-tag"><span id="cart-total-price">0</span> ₽</div>
+                <button class="btn-checkout" type="button">Оформить заказ</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="cart.js"></script>
 </body>
 </html>
