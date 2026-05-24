@@ -1,9 +1,11 @@
-from backend.endpoints.cart import *
-from backend.database.schemes import *
-from fastapi import *
-from select import select
-from sqlalchemy.ext.asyncio import *
-from backend.database.models import *
+from fastapi import Depends, HTTPException
+from sqlalchemy import select
+from sqlalchemy.ext.asyncio import AsyncSession
+
+from backend.database.base import get_db
+from backend.database.models import CartItem, MenuItem, Order, OrderItem
+from backend.database.schemes import OrderCreate, OrderStatusResponse
+from backend.endpoints.cart import get_cart
 from main import app
 
 #Оформить заказ
@@ -11,7 +13,7 @@ from main import app
 async def checkout(
         session_id: str,
         order_data: OrderCreate,
-        db: AsyncSession = Depends()
+        db: AsyncSession = Depends(get_db)
 ):
     cart = await get_cart(session_id, db)
 
@@ -54,7 +56,7 @@ async def checkout(
 
 #Получить статус заказа
 @app.get("/api/order/{order_id}/status", response_model=OrderStatusResponse)
-async def get_order_status(order_id: int, db: AsyncSession = Depends()):
+async def get_order_status(order_id: int, db: AsyncSession = Depends(get_db)):
     result = await db.execute(select(Order).where(Order.id == order_id))
     order = result.scalar_one_or_none()
 
@@ -78,7 +80,7 @@ async def get_order_status(order_id: int, db: AsyncSession = Depends()):
 
 #Получить детали заказа
 @app.get("/api/order/{order_id}")
-async def get_order_details(order_id: int, db: AsyncSession = Depends()):
+async def get_order_details(order_id: int, db: AsyncSession = Depends(get_db)):
     result = await db.execute(select(Order).where(Order.id == order_id))
     order = result.scalar_one_or_none()
 

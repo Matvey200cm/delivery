@@ -1,6 +1,6 @@
 from main import app
 
-@app.get("/")
+@app.get("/api/info")
 async def root():
     return {
         "message": "Доставка еды API",

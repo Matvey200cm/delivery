@@ -1,13 +1,15 @@
-from fastapi import *
-from select import select
-from sqlalchemy.ext.asyncio import *
-from backend.database.models import *
-from backend.database.schemes import *
+from fastapi import Depends, HTTPException
+from sqlalchemy import select
+from sqlalchemy.ext.asyncio import AsyncSession
+
+from backend.database.base import get_db
+from backend.database.models import CartItem, MenuItem, Restaurant
+from backend.database.schemes import CartItemResponse, CartResponse
 from main import app
 
 #Получить корзину
 @app.get("/api/cart/{session_id}", response_model=CartResponse)
-async def get_cart(session_id: str, db: AsyncSession = Depends()):
+async def get_cart(session_id: str, db: AsyncSession = Depends(get_db)):
     result = await db.execute(
         select(CartItem).where(CartItem.session_id == session_id)
     )
@@ -39,7 +41,7 @@ async def get_cart(session_id: str, db: AsyncSession = Depends()):
 
 #Добавить в корзину
 @app.post("/api/cart/{session_id}/add/{menu_item_id}")
-async def add_to_cart(session_id: str, menu_item_id: int, quantity: int = 1, db: AsyncSession = Depends()):
+async def add_to_cart(session_id: str, menu_item_id: int, quantity: int = 1, db: AsyncSession = Depends(get_db)):
     menu_result = await db.execute(select(MenuItem).where(MenuItem.id == menu_item_id))
     menu_item = menu_result.scalar_one_or_none()
 
@@ -66,7 +68,7 @@ async def add_to_cart(session_id: str, menu_item_id: int, quantity: int = 1, db:
 
 #Удалить из корзины
 @app.delete("/api/cart/{session_id}/remove/{menu_item_id}")
-async def remove_from_cart(session_id: str, menu_item_id: int, db: AsyncSession = Depends()):
+async def remove_from_cart(session_id: str, menu_item_id: int, db: AsyncSession = Depends(get_db)):
     result = await db.execute(
         select(CartItem).where(
             CartItem.session_id == session_id,
@@ -90,7 +92,7 @@ async def remove_from_cart(session_id: str, menu_item_id: int, db: AsyncSession 
 
 #Очистить корзину
 @app.delete("/api/cart/{session_id}/clear")
-async def clear_cart(session_id: str, db: AsyncSession = Depends()):
+async def clear_cart(session_id: str, db: AsyncSession = Depends(get_db)):
     result = await db.execute(
         select(CartItem).where(CartItem.session_id == session_id)
     )
