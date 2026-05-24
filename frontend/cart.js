@@ -81,6 +81,101 @@ window.changeCount = function(index, direction) {
     updateCartUI();
 };
 
+let toastIdCounter = 0;
+const TOAST_LIFETIME_MS = 3000;
+const MAX_VISIBLE_TOASTS = 5;
+
+function initCartToastStack() {
+    let stack = document.getElementById('cart-toast-stack');
+
+    if (!stack) {
+        stack = document.createElement('div');
+        stack.id = 'cart-toast-stack';
+        stack.className = 'cart-toast-stack';
+        stack.setAttribute('role', 'status');
+        stack.setAttribute('aria-live', 'polite');
+        document.body.appendChild(stack);
+    }
+
+    return stack;
+}
+
+function createToastElement() {
+    const toast = document.createElement('div');
+    toast.className = 'cart-toast';
+    toast.dataset.toastId = String(++toastIdCounter);
+    toast.innerHTML = `
+        <span class="cart-toast_icon" aria-hidden="true"></span>
+        <span class="cart-toast_text">Товар добавлен в корзину</span>
+    `;
+    return toast;
+}
+
+function animateToastsDown(existingToasts, previousRects) {
+    existingToasts.forEach((toast, index) => {
+        const previousTop = previousRects[index].top;
+        const currentTop = toast.getBoundingClientRect().top;
+        const offset = previousTop - currentTop;
+
+        if (Math.abs(offset) < 1) {
+            return;
+        }
+
+        toast.style.transform = `translateY(${offset}px)`;
+        toast.style.transition = 'none';
+
+        requestAnimationFrame(() => {
+            toast.style.transition = 'transform 0.35s ease';
+            toast.style.transform = '';
+        });
+    });
+}
+
+function hideToast(stack, toast) {
+    if (!toast.isConnected) {
+        return;
+    }
+
+    toast.classList.remove('cart-toast_enter');
+    toast.classList.add('cart-toast_exit');
+
+    toast.addEventListener('animationend', () => {
+        toast.remove();
+
+        if (stack.children.length === 0) {
+            stack.remove();
+        }
+    }, { once: true });
+}
+
+function showCartToast() {
+    const stack = initCartToastStack();
+    const existingToasts = [...stack.querySelectorAll('.cart-toast:not(.cart-toast_exit)')];
+    const previousRects = existingToasts.map(toast => toast.getBoundingClientRect());
+
+    const toast = createToastElement();
+    stack.prepend(toast);
+
+    requestAnimationFrame(() => {
+        toast.classList.add('cart-toast_enter');
+        animateToastsDown(existingToasts, previousRects);
+    });
+
+    while (stack.querySelectorAll('.cart-toast:not(.cart-toast_exit)').length > MAX_VISIBLE_TOASTS) {
+        const oldest = stack.querySelector('.cart-toast:not(.cart-toast_exit):last-child');
+        hideToast(stack, oldest);
+    }
+
+    const toastId = toast.dataset.toastId;
+
+    setTimeout(() => {
+        const toastEl = stack.querySelector(`[data-toast-id="${toastId}"]`);
+        if (toastEl) {
+            hideToast(stack, toastEl);
+        }
+    }, TOAST_LIFETIME_MS);
+}
+
 window.addToCart = function(title, price) {
     const existingItem = cart.find(item => item.title === title);
 
@@ -92,6 +187,7 @@ window.addToCart = function(title, price) {
 
     saveCart();
     updateCartUI();
+    showCartToast();
 };
 
 function initCartModal() {
