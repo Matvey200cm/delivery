@@ -111,6 +111,12 @@ body {
 
 .main_header {
     padding: 40px 0;
+    padding-left: 80px;
+    background-color: bisque;
+    background-image: url("Картинки/ovoshi.png");
+    background-repeat: no-repeat;
+    background-position: top left 470px;
+    border-radius: 10px;
 }
 
 .main_header h1 {
@@ -135,6 +141,7 @@ body {
     font-size: 36px;
     font-weight: 700;
     margin-bottom: 24px;
+    margin-top: 50px;
 }
 
 .restouranse_search {
