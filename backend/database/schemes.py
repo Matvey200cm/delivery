@@ -1,5 +1,38 @@
-from typing import *
-from pydantic import *
+from typing import List, Optional
+
+from pydantic import BaseModel, ConfigDict
+
+
+class RestaurantRead(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+
+    id: int
+    name: str
+    rating: float
+    min_price: int
+    category: Optional[str] = None
+    is_active: bool = True
+
+
+class MenuItemRead(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+
+    id: int
+    restaurant_id: int
+    name: str
+    description: Optional[str] = None
+    price: int
+    is_available: bool = True
+
+
+class MenuResponse(BaseModel):
+    restaurant: RestaurantRead
+    menu: List[MenuItemRead]
+
+
+class SearchResponse(BaseModel):
+    restaurants: List[RestaurantRead]
+    menu_items: List[MenuItemRead]
 
 
 class UserCreate(BaseModel):
