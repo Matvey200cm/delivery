@@ -1,0 +1,194 @@
+        /* Общие стили */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f5f5f5;
+            color: #000000;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Шапка сайта */
+        .header {
+            background-color: #ffffff;
+            padding: 44px 0px;
+        }
+        .header-block {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: #000;
+            font-weight: 700;
+            font-size: 20px;
+        }
+        .logo i {
+            font-size: 32px;
+            margin-right: 10px;
+            color: #595959;
+        }
+        .search-input {
+            width: 690px;
+            height: 40px;
+            border: 1px solid #d9d9d9;
+            border-radius: 2px;
+            padding-left: 32px;
+            background-image: url('');
+            background-repeat: no-repeat;
+            background-position: left 11px center;
+            background-size: 16px;
+            font-size: 14px;
+        }
+        .search-input::placeholder {
+            color: #bfbfbf;
+        }
+        .buttons {
+            display: flex;
+            gap: 10px;
+        }
+        .btn {
+            height: 40px;
+            padding: 0 16px;
+            border-radius: 2px;
+            font-size: 16px;
+            cursor: pointer;
+            border: 1px solid #d9d9d9;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .btn-primary {
+            background-color: #1890ff;
+            color: #ffffff;
+            border-color: #1890ff;
+        }
+        .btn-outline {
+            background-color: #ffffff;
+            color: #595959;
+        }
+
+        /* Раздел ресторана */
+        .restaurant-title-section {
+            padding: 40px 0;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        .title {
+            font-size: 36px;
+            font-weight: 700;
+        }
+        .rating {
+            color: #ffc107;
+            font-weight: 700;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .meta-info {
+            color: #8c8c8c;
+            font-size: 18px;
+        }
+
+        /* Сетка товаров */
+        .cards {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px 24px;
+            margin-bottom: 90px;
+        }
+        .card {
+            background: #ffffff;
+            width: calc(33.333% - 16px);
+            border-radius: 3px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+        .card-image {
+            width: 100%;
+            height: 250px;
+            object-fit: contain;
+            padding: 20px;
+            background-color: #fff;
+        }
+        .card-text {
+            padding: 20px 24px 24px 24px;
+        }
+        .card-title {
+            font-size: 24px;
+            font-weight: 400;
+            margin-bottom: 10px;
+        }
+        .card-ingredients {
+            font-size: 15px;
+            color: #8c8c8c;
+            line-height: 21px;
+            height: 42px;
+            overflow: hidden;
+            margin-bottom: 24px;
+        }
+        .card-buttons {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .btn-buy {
+            background-color: #1890ff;
+            color: white;
+            border: none;
+            height: 40px;
+            padding: 0 16px;
+            border-radius: 2px;
+            font-size: 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .card-price {
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        /* Подвал */
+        .footer {
+            background-color: #ffffff;
+            padding: 60px 0;
+        }
+        .footer-block {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .footer-nav {
+            display: flex;
+            gap: 15px;
+        }
+        .footer-link {
+            color: #595959;
+            text-decoration: none;
+            font-size: 18px;
+        }
+        .social-links {
+            display: flex;
+            gap: 20px;
+        }
+        .social-link {
+            font-size: 25px;
+            text-decoration: none;
+        }
+        .social-link.instagram { color: #e1306c; }
+        .social-link.facebook { color: #4267b2; }
+        .social-link.vk { color: #4c75a3; }
