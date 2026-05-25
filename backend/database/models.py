@@ -8,11 +8,9 @@ class User(Base):
     __tablename__ = "users"
 
     id = Column(Integer, primary_key=True)
-    email = Column(String(255), unique=True, nullable=False)
-    name = Column(String(255), nullable=False)
-    delivery_address = Column(String(500), nullable=False)
-    username = Column(String(255), unique=True, nullable=True)
-    phone = Column(String(20), nullable=True)
+    username = Column(String(255), unique=True, nullable=False)
+    phone = Column(String(255))
+    delivery_address = Column(String(500))
     created_at = Column(DateTime(timezone=True), server_default=func.now())
 
     orders = relationship("Order", back_populates="user")

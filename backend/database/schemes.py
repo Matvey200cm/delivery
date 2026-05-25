@@ -40,23 +40,23 @@ class UserCreate(BaseModel):
     phone: Optional[str] = None
 
 
-class UserRegister(BaseModel):
+class AuthRegister(BaseModel):
     email: str
     name: str
     delivery_address: str
 
 
-class UserLogin(BaseModel):
+class AuthLogin(BaseModel):
     email: str
 
 
-class UserRead(BaseModel):
+class UserAuthResponse(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 
     id: int
-    email: str
     name: str
-    delivery_address: str
+    email: str
+    delivery_address: str = ""
 
 
 class CartItemResponse(BaseModel):
