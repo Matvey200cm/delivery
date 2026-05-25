@@ -4,44 +4,129 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Delivery Food — Тануки</title>
+    <!-- Подключаем шрифты и иконки -->
+    <link href="https://googleapis.com" rel="stylesheet">
+    <link rel="stylesheet" href="https://cloudflare.com">
+    <!-- Подключаем файл стилей -->
     <link rel="stylesheet" href="katalog.css">
     <link rel="stylesheet" href="cart.css">
-    <link rel="stylesheet" href="auth.css">
-    <script src="api.js" defer></script>
-    <script src="auth.js" defer></script>
     <script src="cart.js" defer></script>
     <script src="katalog.js" defer></script>
 </head>
 <body>
+    <!-- Шапка сайта -->
     <header class="header">
         <div class="container header-block">
-            <a href="home.html" class="logo">
+            <a href="#" class="logo">
+                <i class="fa-solid fa-motorcycle"></i>
                 <img src="Картинки/logo.svg" alt="Логотип сервиса Delivery Food">
             </a>
             <input type="text" class="search-input" placeholder="Адрес доставки">
             <div class="buttons">
-                <button class="btn btn-primary auth-open" type="button">Войти</button>
-                <button class="btn btn-outline" type="button" id="cart-btn">
-                    Корзина
+                <button class="btn btn-primary"><i class="fa-regular fa-user"></i>Войти</button>
+                <button class="btn btn-outline" id="cart-btn">
+                    <i class="fa-solid fa-shopping-cart"></i> Корзина 
                     <span id="cart-count" class="cart-badge" style="display: none;">0</span>
                 </button>
             </div>
         </div>
     </header>
 
+    <!-- Основной контент -->
     <main class="container">
         <section class="restaurant-title-section">
             <h1 class="title">Тануки</h1>
-            <div class="rating">★ 4.5</div>
+            <div class="rating"><i class="fa-solid fa-star"></i> 4.5</div>
             <div class="meta-info">От 900 ₽ • Пицца и суши</div>
         </section>
 
-        <section class="cards"></section>
+        <!-- Сетка товаров -->
+        <section class="cards">
+            <!-- Карточка 1 -->
+            <div class="card">
+                <img src="Картинки/карточка 1.jpg" alt="Ролл" class="card-image">
+                <div class="card-text">
+                    <h3 class="card-title">Ролл угорь стандарт</h3>
+                    <div class="card-ingredients">Рис, угорь, соус унаги, кунжут, водоросли нори.</div>
+                    <div class="card-buttons">
+                        <button class="btn-buy">В корзину <i class="fa-solid fa-shopping-cart"></i></button>
+                        <span class="card-price">950 ₽</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Карточка 2 -->
+            <div class="card">
+                <img src="Картинки/карточка 2.jpg" alt="Ролл" class="card-image">
+                <div class="card-text">
+                    <h3 class="card-title">Калифорния лосось</h3>
+                    <div class="card-ingredients">Рис, лосось, авокадо, огурец, майонез, икра масаго.</div>
+                    <div class="card-buttons">
+                        <button class="btn-buy">В корзину <i class="fa-solid fa-shopping-cart"></i></button>
+                        <span class="card-price">1030 ₽</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Карточка 3 -->
+            <div class="card">
+                <img src="Картинки/карточка 3.jpg" alt="Ролл" class="card-image">
+                <div class="card-text">
+                    <h3 class="card-title">Окинава стандарт</h3>
+                    <div class="card-ingredients">Рис, креветка отварная, сыр сливочный, лосось, огурец.</div>
+                    <div class="card-buttons">
+                        <button class="btn-buy">В корзину <i class="fa-solid fa-shopping-cart"></i></button>
+                        <span class="card-price">1250 ₽</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Карточка 4 -->
+            <div class="card">
+                <img src="Картинки/карточка 4.jpg" alt="Ролл" class="card-image">
+                <div class="card-text">
+                    <h3 class="card-title">Цезарь маки xl</h3>
+                    <div class="card-ingredients">Рис, куриная грудка копченая, икра масаго, томат.</div>
+                    <div class="card-buttons">
+                        <button class="btn-buy">В корзину <i class="fa-solid fa-shopping-cart"></i></button>
+                        <span class="card-price">900 ₽</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Карточка 5 -->
+            <div class="card">
+                <img src="Картинки/карточка 5.jpg" alt="Ролл" class="card-image">
+                <div class="card-text">
+                    <h3 class="card-title">Ясай маки стандарт</h3>
+                    <div class="card-ingredients">Рис, помидор свежий, перец болгарский, авокадо, огурец.</div>
+                    <div class="card-buttons">
+                        <button class="btn-buy">В корзину <i class="fa-solid fa-shopping-cart"></i></button>
+                        <span class="card-price">1050 ₽</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Карточка 6 -->
+            <div class="card">
+                <img src="Картинки/карточка 6.jpg" alt="Ролл" class="card-image">
+                <div class="card-text">
+                    <h3 class="card-title">Ролл с креветкой стандарт</h3>
+                    <div class="card-ingredients">Рис, водоросли нори, креветки отварные, сыр сливочный.</div>
+                    <div class="card-buttons">
+                        <button class="btn-buy">В корзину <i class="fa-solid fa-shopping-cart"></i></button>
+                        <span class="card-price">1200 ₽</span>
+                    </div>
+                </div>
+            </div>
+        </section>
     </main>
 
+    <!-- Подвал сайта -->
     <footer class="footer">
         <div class="container footer-block">
-            <a href="home.html" class="logo">
+            <a href="#" class="logo">
+                <i class="fa-solid fa-motorcycle"></i> 
                 <img src="Картинки/logo.svg" alt="Логотип сервиса Delivery Food">
             </a>
             <nav class="footer-nav">
@@ -52,30 +137,45 @@
             </nav>
             <div class="social-links">
                 <a href="#" class="social-link instagram">
-                    <img src="Картинки/insta.png" alt="Instagram">
+                    <i class="fa-brands fa-instagram">
+                        <img src="Картинки/insta.png" alt="Instagram">
+                    </i>
                 </a>
                 <a href="#" class="social-link facebook">
-                    <img src="Картинки/facebook.png" alt="Facebook">
+                    <i class="fa-brands fa-facebook">
+                        <img src="Картинки/facebook.png" alt="Facebook">
+                    </i>
                 </a>
                 <a href="#" class="social-link vk">
-                    <img src="Картинки/VK.png" alt="VK">
+                    <i class="fa-brands fa-vk">
+                        <img src="Картинки/vk.png" alt="VK">
+                    </i>
                 </a>
             </div>
         </div>
     </footer>
+            </div>
+        </div>
+    </footer>
 
+    <!-- Модальное окно корзины (в точности как на скриншоте) -->
     <div id="cart-modal" class="modal-overlay">
         <div class="modal-container">
             <div class="modal-header">
                 <h2 class="modal-title">Корзина</h2>
-                <button id="modal-close" class="modal-close-btn" type="button">&times;</button>
+                <button id="modal-close" class="modal-close-btn">&times;</button>
             </div>
-            <div id="cart-items-list" class="modal-body"></div>
+            
+            <div id="cart-items-list" class="modal-body">
+                <!-- Сюда JavaScript добавляет строки товаров -->
+            </div>
+            
             <div class="modal-footer">
                 <div class="total-price-tag"><span id="cart-total-price">0</span> ₽</div>
-                <button class="btn-checkout" type="button">Оформить заказ</button>
+                <button class="btn-checkout">Оформить заказ</button>
             </div>
         </div>
     </div>
+
 </body>
 </html>

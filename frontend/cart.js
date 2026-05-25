@@ -1,12 +1,18 @@
-let cart = { items: [], total: 0 };
+const CART_STORAGE_KEY = 'delivery-cart';
 
-async function syncCart() {
+let cart = loadCart();
+
+function loadCart() {
     try {
-        cart = await DeliveryAPI.getCart();
-        updateCartUI();
-    } catch (error) {
-        console.error(error);
+        const saved = localStorage.getItem(CART_STORAGE_KEY);
+        return saved ? JSON.parse(saved) : [];
+    } catch {
+        return [];
     }
+}
+
+function saveCart() {
+    localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(cart));
 }
 
 function updateCartUI() {
@@ -18,9 +24,7 @@ function updateCartUI() {
         return;
     }
 
-    const items = cart.items || [];
-    const totalCount = items.reduce((sum, item) => sum + item.quantity, 0);
-
+    const totalCount = cart.reduce((sum, item) => sum + item.count, 0);
     if (cartCount) {
         if (totalCount > 0) {
             cartCount.textContent = totalCount;
@@ -32,45 +36,50 @@ function updateCartUI() {
 
     cartItemsList.innerHTML = '';
 
-    if (items.length === 0) {
+    if (cart.length === 0) {
         cartItemsList.innerHTML = '<div style="color: #8c8c8c; text-align: center; padding: 40px 0; font-size: 18px;">Корзина пуста</div>';
         cartTotalPrice.textContent = '0';
         return;
     }
 
-    items.forEach((item) => {
+    let totalSum = 0;
+
+    cart.forEach((item, index) => {
+        totalSum += item.price * item.count;
+
         const row = document.createElement('div');
         row.className = 'cart-item-row';
         row.innerHTML = `
-            <div class="cart-item-title">${item.name}</div>
+            <div class="cart-item-title">${item.title}</div>
             <div class="cart-item-price">${item.price} ₽</div>
             <div class="cart-counter-block">
-                <button type="button" data-action="decrease" data-menu-item-id="${item.menu_item_id}" class="counter-btn">-</button>
-                <span class="counter-value">${item.quantity}</span>
-                <button type="button" data-action="increase" data-menu-item-id="${item.menu_item_id}" class="counter-btn">+</button>
+                <button onclick="changeCount(${index}, -1)" class="counter-btn">-</button>
+                <span class="counter-value">${item.count}</span>
+                <button onclick="changeCount(${index}, 1)" class="counter-btn">+</button>
             </div>
         `;
         cartItemsList.appendChild(row);
     });
 
-    cartTotalPrice.textContent = cart.total || 0;
+    cartTotalPrice.textContent = totalSum;
 }
 
-window.refreshCartUI = syncCart;
+window.refreshCartUI = updateCartUI;
 
-async function changeCount(menuItemId, direction) {
-    try {
-        if (direction > 0) {
-            await DeliveryAPI.addToCart(menuItemId, 1);
-        } else {
-            await DeliveryAPI.removeFromCart(menuItemId);
-        }
-
-        await syncCart();
-    } catch (error) {
-        alert(error.message);
+window.changeCount = function(index, direction) {
+    if (!cart[index]) {
+        return;
     }
-}
+
+    cart[index].count += direction;
+
+    if (cart[index].count <= 0) {
+        cart.splice(index, 1);
+    }
+
+    saveCart();
+    updateCartUI();
+};
 
 let toastIdCounter = 0;
 const TOAST_LIFETIME_MS = 3000;
@@ -167,64 +176,33 @@ function showCartToast() {
     }, TOAST_LIFETIME_MS);
 }
 
-window.addToCart = async function(menuItemId) {
-    try {
-        await DeliveryAPI.addToCart(menuItemId, 1);
-        await syncCart();
-        showCartToast();
-    } catch (error) {
-        alert(error.message);
+window.addToCart = function(title, price) {
+    const existingItem = cart.find(item => item.title === title);
+
+    if (existingItem) {
+        existingItem.count += 1;
+    } else {
+        cart.push({ title, price, count: 1 });
     }
+
+    saveCart();
+    updateCartUI();
+    showCartToast();
 };
-
-function getDeliveryAddress() {
-    const input = document.querySelector('.delivery_address input, .search-input');
-    return input ? input.value.trim() : '';
-}
-
-async function checkoutOrder() {
-    const address = getDeliveryAddress();
-
-    if (!address) {
-        alert('Укажите адрес доставки');
-        return;
-    }
-
-    if (!cart.items || cart.items.length === 0) {
-        alert('Корзина пуста');
-        return;
-    }
-
-    const user = typeof getStoredUser === 'function' ? getStoredUser() : null;
-
-    try {
-        const result = await DeliveryAPI.checkout(address, user ? user.id : null);
-        alert(`${result.message}\nНомер заказа: ${result.order_id}`);
-        await syncCart();
-
-        const cartModal = document.getElementById('cart-modal');
-        if (cartModal) {
-            cartModal.style.display = 'none';
-        }
-    } catch (error) {
-        alert(error.message);
-    }
-}
 
 function initCartModal() {
     const cartBtn = document.getElementById('cart-btn');
     const cartModal = document.getElementById('cart-modal');
     const modalClose = document.getElementById('modal-close');
-    const checkoutBtn = document.querySelector('.btn-checkout');
 
     if (!cartModal) {
         return;
     }
 
     if (cartBtn) {
-        cartBtn.addEventListener('click', async () => {
+        cartBtn.addEventListener('click', () => {
             cartModal.style.display = 'flex';
-            await syncCart();
+            updateCartUI();
         });
     }
 
@@ -240,23 +218,7 @@ function initCartModal() {
         }
     });
 
-    if (checkoutBtn) {
-        checkoutBtn.addEventListener('click', checkoutOrder);
-    }
-
-    document.getElementById('cart-items-list')?.addEventListener('click', (event) => {
-        const button = event.target.closest('[data-menu-item-id]');
-
-        if (!button) {
-            return;
-        }
-
-        const menuItemId = Number(button.dataset.menuItemId);
-        const direction = button.dataset.action === 'increase' ? 1 : -1;
-        changeCount(menuItemId, direction);
-    });
-
-    syncCart();
+    updateCartUI();
 }
 
 document.addEventListener('DOMContentLoaded', initCartModal);

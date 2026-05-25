@@ -263,12 +263,8 @@ body {
     color: #ffc107;
 }
 
-.restouranse_loading {
-    width: 100%;
-    padding: 40px 24px;
-    font-size: 18px;
-    color: #8c8c8c;
-    list-style: none;
+.restouranse_meta .score::before {
+    content: '★ 4.5';
 }
 
 /* Подвал */
