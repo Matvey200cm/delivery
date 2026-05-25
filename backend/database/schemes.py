@@ -40,6 +40,25 @@ class UserCreate(BaseModel):
     phone: Optional[str] = None
 
 
+class AuthRegister(BaseModel):
+    email: str
+    name: str
+    delivery_address: str
+
+
+class AuthLogin(BaseModel):
+    email: str
+
+
+class UserAuthResponse(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+
+    id: int
+    name: str
+    email: str
+    delivery_address: str = ""
+
+
 class CartItemResponse(BaseModel):
     menu_item_id: int
     name: str
