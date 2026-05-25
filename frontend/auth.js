@@ -125,7 +125,7 @@ function updateAuthUI() {
         if (user) {
             button.classList.add('auth-open_logged-in');
             button.innerHTML = `
-                <img src="Картинки/login2.png" alt="Профиль ${user.name}" class="auth-profile-img">
+                <img src="Картинки/user.svg" alt="Профиль ${user.name}" class="auth-profile-img">
             `;
             button.title = `${user.name} — нажмите, чтобы выйти`;
             button.dataset.loggedIn = 'true';
